@@ -1,0 +1,14 @@
+How to compile C code in Linux: 
+
+go to the directory containing CMakeLists.txt
+
+run:
+cmake -S . -B build
+cmake --build build
+./build/v1
+
+
+Test Doc
+Report
+Design
+
