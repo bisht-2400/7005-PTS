@@ -76,7 +76,7 @@ def recv_file(sock, filename, filesize, directory):
     size_recv = 0.0
     while True:
         data = sock.recv(BUFFER)
-        size_recv += BUFFER
+        size_recv += len(data)
         if size_recv >= filesize:
             f.write(data)
             break

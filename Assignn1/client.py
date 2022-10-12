@@ -4,7 +4,6 @@ import os
 from glob import glob
 from socket import AF_INET, SOCK_STREAM, socket
 
-
 BUFFER = 4096
 FORMAT = 'utf-8'
 PORT = 5000
@@ -75,13 +74,16 @@ def main():
     parser.add_argument("files", nargs='+')
     args = parser.parse_args()
 
-    if '*' in args.files[0]:
-        print(f"[SENDING] '*' detected: Sending all files.")
-        args.files = glob(args.files[0])
-
+    flist = []
+    for i in args.files:
+        if '*' in i:
+            print(f"[SENDING] '*' detected: Extension provided{os.path.splitext(i)[1]}")
+            flist += glob(i)
+        else:
+            flist.append(i)
+    args.files = flist
     socket_obj = socket(AF_INET, SOCK_STREAM)
     socket_obj.connect((args.server_ip, args.port))
-
     print(f"\n[CONNECTED] connected to {socket_obj.getpeername()}")
     handle_connection(socket_obj, args.files)
 
